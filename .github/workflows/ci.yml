@@ -1,3 +1,4 @@
+
 name: ci
 on: [push, pull_request]
 jobs:
@@ -8,5 +9,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install -r 02-pennywise-expense-platform/backend/requirements.txt
-      - run: cd 02-pennywise-expense-platform/backend && pytest -q
+      - name: Install dependencies
+        run: pip install -r backend/requirements.txt
+      - name: Run tests
+        run: |
+          cd backend
+          PYTHONPATH=. pytest -q
